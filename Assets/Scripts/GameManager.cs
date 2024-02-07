@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
         // Actualizamos la información
         UpdateDisparos();
+        UpdateMuertes();
+
 
     }
 
@@ -42,6 +44,11 @@ public class GameManager : MonoBehaviour
     {
         // Actualizamos el texto de las balas disparadas
         textoDisparos.text = "Disparos: " + disparos;
+    }
+     public void UpdateMuertes()
+    {
+        // Actualizamos el texto de las balas disparadas
+        textoMuertes.text = "Muertes: " + muertes;
     }
 
 }
