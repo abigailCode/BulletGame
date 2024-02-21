@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Ball
   - Bullet
+  - spikedball_item
+  - sawblade_item
   layers:
   - Default
   - TransparentFX

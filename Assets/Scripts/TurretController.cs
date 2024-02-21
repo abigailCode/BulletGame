@@ -12,11 +12,33 @@ public class TurretController : MonoBehaviour
     Vector2 mousePosition; // Para almacenar las coordenadas en píxeles del mouse
     Vector2 worldMousePosition; // Para almacenar las coordenadas equivalentes del mundo                    
     Vector2 pointDirection; // Para almacenar el vector de dirección que apunta al mouse
-
+    // Variables privadas
+    private bool turretCanShoot; // Para almacenar si se puede disparar o no
 
     private void Update()
     {
-      
+
+        // Obtenemos el valor del GameManager que controla si se puede disparar o no
+        turretCanShoot = GameObject.Find("GameManager").GetComponent<GameManager>().GetShootingStatus();
+
+        // Detectamos si se ha hecho clic con el botón primario del ratón
+        // En ese caso instanciamos la bala en la posición de spawn
+        if (Input.GetMouseButtonDown(0) && turretCanShoot)
+        {
+
+            // Instanciamos la bala en la posición de spawn
+            GameObject bullet = Instantiate(bulletPrefab, spawnPoint.transform);
+
+            // Eliminamos la dependencia del objeto padre spawnPoint
+            bullet.transform.SetParent(null);
+
+            // Configuramos la velocidad de movimiento
+            bullet.GetComponent<Rigidbody2D>().velocity = pointDirection.normalized * bulletSpeed;
+        }
+
+        // Volvemos a activar los disparos si no se hace clic en el ítem
+        GameObject.Find("GameManager").GetComponent<GameManager>().EnableFire();
+
         // Obtenemos la posición del mouse
         mousePosition = Input.mousePosition; // Coordenadas de pantalla
 
@@ -34,20 +56,7 @@ public class TurretController : MonoBehaviour
 
     
        
-        // Detectamos si se ha hecho clic con el botón primario del ratón
-        // En ese caso instanciamos la bala en la posición de spawn
-        if (Input.GetMouseButtonDown(0))
-        {
-
-            // Instanciamos la bala en la posición de spawn
-            GameObject bullet = Instantiate(bulletPrefab, spawnPoint.transform);
-
-            // Eliminamos la dependencia del objeto padre spawnPoint
-            bullet.transform.SetParent(null);
-
-            // Configuramos la velocidad de movimiento
-            bullet.GetComponent<Rigidbody2D>().velocity = pointDirection.normalized * bulletSpeed;
-        }
+     
 
 
     }
