@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BugMotion : MonoBehaviour
 {
-    [SerializeField] float bugSpeed = 5; // Variables privadas accesibles desde el inspector
+    [SerializeField] float bugSpeed = 2; // Variables privadas accesibles desde el inspector
     [SerializeField] GameObject target; // Referencias privadas accesibles desde el inspector
     [SerializeField] float circleAttackRadius = 0.1f; // Radio del collider de ataque
     [SerializeField] GameObject hitPoint; // Referencia al punto de ataque
@@ -55,6 +55,8 @@ public class BugMotion : MonoBehaviour
             if (!executingCoroutine) StartCoroutine(WaitAndAttack());
             // ---------------------------------------------------------------------------
         }
+
+        //while bugSpeed <20 increment bugSpeed each 5 seconds
     }
 
 
@@ -174,6 +176,19 @@ public class BugMotion : MonoBehaviour
 
     }
 
+    // Corrutina para aumentar velocidad enemigos
+    //public IEnumerator IncrementBugSpeed()
+    //{
+
+      
+    //    executingCoroutine = true;
+
+    //    yield return new WaitForSeconds(attackDelay);
+
+      
+    //    executingCoroutine = false;
+
+    //}
 
 
 }
