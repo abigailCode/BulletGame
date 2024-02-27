@@ -16,6 +16,9 @@ public class Spawner : MonoBehaviour
     {
         // Lanzamos la corrutina al arrancar el script
         StartCoroutine(GenerateEnemy());
+
+        // Iniciamos la corrutina para aumentar la velocidad
+        StartCoroutine(IncreaseSpeedCoroutine());
     }
 
     IEnumerator GenerateEnemy()
@@ -35,6 +38,24 @@ public class Spawner : MonoBehaviour
             // en la variable pública timeBetweenGenerations
             yield return new WaitForSeconds(timeBetweenGenerations);
 
+        }
+    }
+
+    public IEnumerator IncreaseSpeedCoroutine()
+    {
+        while (true)
+        {
+            // Esperamos 5 segundos
+            yield return new WaitForSeconds(5f);
+
+            // Aumentamos la velocidad
+            timeBetweenGenerations -= 0.25f;
+
+            // **Limitar la velocidad máxima**
+            if (timeBetweenGenerations < 0.25f)
+            {
+                timeBetweenGenerations = 0f;
+            }
         }
     }
 

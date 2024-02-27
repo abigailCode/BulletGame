@@ -28,6 +28,8 @@ public class BugMotion : MonoBehaviour
         // Cargamos la referencia al objeto que tenga la etiqueta Player
         // (previamente deberíamos haber asociado dicha etiqueta a la torreta)
         target = GameObject.FindGameObjectWithTag("Player");
+
+       
     }
 
 
@@ -44,7 +46,7 @@ public class BugMotion : MonoBehaviour
         // Llamamos al método que dibuja la línea del RayCastHit2D y devuelve true
         // si ha llegado al destino, false en caso contrario. Por lo tanto, se moverá
         // mientras no detecte al jugador
-        if (!IsDetectingPlayer()) GetComponent<Rigidbody2D>().velocity = direction * bugSpeed;
+        if (!IsDetectingPlayer()) GetComponent<Rigidbody2D>().velocity = direction * GameObject.Find("GameManager").GetComponent<GameManager>().bugSpeed;
         else
         {
             SetAnimation("attacking");
@@ -176,19 +178,9 @@ public class BugMotion : MonoBehaviour
 
     }
 
-    // Corrutina para aumentar velocidad enemigos
-    //public IEnumerator IncrementBugSpeed()
-    //{
 
-      
-    //    executingCoroutine = true;
 
-    //    yield return new WaitForSeconds(attackDelay);
 
-      
-    //    executingCoroutine = false;
-
-    //}
 
 
 }

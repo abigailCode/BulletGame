@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,7 +25,11 @@ public class GameManager : MonoBehaviour
     public int muertes = 0;
     // Variables privadas
     private bool canShoot = true;
+
+    public float bugSpeed = 2;
     #endregion
+
+
 
     private void Start()
     {
@@ -40,7 +45,8 @@ public class GameManager : MonoBehaviour
         UpdateDisparos();
         UpdateMuertes();
 
-
+        // Iniciamos la corrutina para aumentar la velocidad
+        StartCoroutine(IncreaseSpeedCoroutine());
     }
 
     // ---------------------------------------------
@@ -147,6 +153,22 @@ public class GameManager : MonoBehaviour
         life = life = Mathf.Clamp(life + lifeRecovered, 0, maxLife); ;
     }
 
+   public IEnumerator IncreaseSpeedCoroutine()
+    {
+        while (true)
+        {
+            // Esperamos 5 segundos
+            yield return new WaitForSeconds(5f);
 
+            // Aumentamos la velocidad en 2 puntos
+            bugSpeed += 0.5f;
+
+            // **Limitar la velocidad máxima**
+            if (bugSpeed > 20f)
+            {
+                bugSpeed = 20f;
+            }
+        }
+    }
 
 }

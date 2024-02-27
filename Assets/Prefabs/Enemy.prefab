@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ea89a501b67c147a4528b267936bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bugSpeed: 20
+  bugSpeed: 2
   target: {fileID: 0}
   circleAttackRadius: 0.1
   hitPoint: {fileID: 6733166072659289249}
