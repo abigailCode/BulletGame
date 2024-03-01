@@ -2868,6 +2868,7 @@ MonoBehaviour:
   textoMuertes: {fileID: 1097503719}
   disparos: 0
   muertes: 0
+  bugSpeed: 2
 --- !u!4 &1658069393
 Transform:
   m_ObjectHideFlags: 0
@@ -2892,13 +2893,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673863707}
+  - component: {fileID: 1673863708}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1673863707
 Transform:
   m_ObjectHideFlags: 0
@@ -2918,6 +2920,18 @@ Transform:
   - {fileID: 482087180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673863708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673863706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851692751337e904aa926999e111ccb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1726854465
 GameObject:
   m_ObjectHideFlags: 0
