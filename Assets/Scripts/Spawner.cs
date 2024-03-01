@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour
             // **Limitar la velocidad máxima**
             if (timeBetweenGenerations < 0.25f)
             {
-                timeBetweenGenerations = 0f;
+                timeBetweenGenerations = 0.25f;
             }
         }
     }
