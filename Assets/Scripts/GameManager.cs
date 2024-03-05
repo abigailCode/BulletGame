@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     private bool canShoot = true;
 
     public float bugSpeed = 2;
+
+    private Inventory inventario; // Para guardar la referencia al script del inventario
+    [SerializeField] GameObject itemButton_1;
     #endregion
 
 
@@ -47,6 +50,9 @@ public class GameManager : MonoBehaviour
 
         // Iniciamos la corrutina para aumentar la velocidad
         StartCoroutine(IncreaseSpeedCoroutine());
+
+        // Obtenemos la referencia al script del Inventario que hay asociado al GameManager
+        inventario = GetComponent<Inventory>();
     }
 
     // ---------------------------------------------
@@ -83,11 +89,22 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.CompareTag("spikedball_item") && !dialoguesObject.activeSelf)
                 {
                     Debug.Log("¡¡BOLA CON PINCHOS!!");
-                    Destroy(hit.collider.gameObject);
-                    DisableFire();
-                    dialoguesObject.SetActive(true); // Activamos el sistema de diálogos
-                                                     // Comenzamos a mostrar el texto que corresponda
-                    GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("spikedball_item");
+                    // Verificamos si existen huecos libres en el inventario
+                    for (int i = 0; i < inventario.slots.Length; i++)
+                    {
+                        if (!inventario.isFull[i])
+                        { // Se pueden añadir items
+                            inventario.isFull[i] = true; // Ocupamos la posición
+                                                         // Instanciamos un botón en la posición del slot
+                            Instantiate(itemButton_1, inventario.slots[i].transform, false);
+                            Destroy(hit.collider.gameObject); // Destruimos el objeto
+                            DisableFire();
+                            dialoguesObject.SetActive(true); // Activamos los diálogos
+                            GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("spikedball_item");
+                            break; // Salimos del bucle
+                        }
+                    }
+
 
                 }
                 if (hit.collider.CompareTag("sawblade_item") && !dialoguesObject.activeSelf)
