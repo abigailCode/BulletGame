@@ -9,11 +9,12 @@ TagManager:
   - Bullet
   - spikedball_item
   - sawblade_item
+  - Trap
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DroppedItems
   - Water
   - UI
   - 

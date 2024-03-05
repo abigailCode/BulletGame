@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 311037789118519414}
   m_Layer: 0
   m_Name: Wheel (2)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 6032837334901979829}
   m_Layer: 0
   m_Name: Wheel
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 5292062503823220422}
   m_Layer: 0
   m_Name: Wheel (1)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

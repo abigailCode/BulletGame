@@ -30,6 +30,13 @@ public class ItemCreator : MonoBehaviour
             // Instanciamos un objeto aleatorio de la lista
             GameObject newItem = Instantiate(itemPrefabs[randomOption], dropPosition);
 
+            // Cambiamos la capa del objeto que se acaba de instanciar
+            newItem.layer = LayerMask.NameToLayer("DroppedItems");
+
+            // Ignoramos la colisión entre objetos de las capas por defecto
+            // (o la que hayas configurado para los enemigos) y DroppedItems
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("DroppedItems"), LayerMask.NameToLayer("Default"));
+
             // Lo desvinculamos del objeto padre
             newItem.transform.SetParent(null);
         }

@@ -82,6 +82,29 @@ public class BugMotion : MonoBehaviour
         }
     }
 
+    // -----------------------------------------------------------------
+    // Método que detecta las colisiones de los enemigos con las trampas
+    // -----------------------------------------------------------------
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Si existe la colisión
+        if (collision != null)
+        {
+            // Si la colisión es con una trampa
+            if (collision.collider.CompareTag("Trap"))
+            {
+                // Se incrementa el número de muertes
+                GameObject.Find("GameManager").GetComponent<GameManager>().muertes++;
+                // Se actualiza el texto
+                GameObject.Find("GameManager").GetComponent<GameManager>().UpdateMuertes();
+                // NO se llama al generador de objetos aleatorios porque si no es muy fácil...
+                // Se destruye el bicho
+                Destroy(gameObject);
+            }
+        }
+    }
+
+
 
     // -----------------------------------------------------------------------------
     // Método que desactiva todos los parámetros del Animator y activa uno concreto.
