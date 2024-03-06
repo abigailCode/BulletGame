@@ -6,6 +6,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     #region Variables
+
     // Referencias a objetos privados visibles desde el Inspector
     [SerializeField] GameObject HPBar; // Para referenciar el relleno de la barra de vida
 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     private Inventory inventario; // Para guardar la referencia al script del inventario
     [SerializeField] GameObject itemButton_1;
+    [SerializeField] GameObject itemButton_2;
     #endregion
 
 
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
             if (hit.collider != null)
             {
 
+
                 // Filtrar los objetos que interesan según su etiqueta
                 if (hit.collider.CompareTag("spikedball_item") && !dialoguesObject.activeSelf)
                 {
@@ -104,20 +107,29 @@ public class GameManager : MonoBehaviour
                             break; // Salimos del bucle
                         }
                     }
-
-
                 }
                 if (hit.collider.CompareTag("sawblade_item") && !dialoguesObject.activeSelf)
                 {
                     Debug.Log("¡¡DISCO DE SIERRA!!");
-                    Destroy(hit.collider.gameObject);
-                    DisableFire();
-                    dialoguesObject.SetActive(true); // Activamos el sistema de diálogos
-                                                     // Comenzamos a mostrar el texto que corresponda
-                    GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("sawblade_item");
+                    // Verificamos si existen huecos libres en el inventario
+                    for (int i = 0; i < inventario.slots.Length; i++)
+                    {
+                        if (!inventario.isFull[i])
+                        { // Se pueden añadir items
+                            inventario.isFull[i] = true; // Ocupamos la posición
+                                                         // Instanciamos un botón en la posición del slot
+                            Instantiate(itemButton_2, inventario.slots[i].transform, false);
+                            Destroy(hit.collider.gameObject); // Destruimos el objeto
+                            DisableFire();
+                            dialoguesObject.SetActive(true); // Activamos los diálogos
+                            GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("sawblade_item");
+                            break; // Salimos del bucle
+                        }
+                    }
+                }
+
                 }
             }
-        }
     }
 
 
