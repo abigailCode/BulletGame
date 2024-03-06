@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1852672331048257711}
   - component: {fileID: 7163610982682237240}
   - component: {fileID: 5971340669779024567}
+  - component: {fileID: 2601492686668694047}
+  - component: {fileID: 2494238518163155654}
   m_Layer: 5
   m_Name: Item_1_Button
   m_TagString: Untagged
@@ -119,4 +121,42 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7163610982682237240}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2494238518163155654}
+        m_TargetAssemblyTypeName: ItemActions, Assembly-CSharp
+        m_MethodName: SpawnSpikedball
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2601492686668694047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496740408689007895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79271d2890975e146b0e904887f68d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2494238518163155654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496740408689007895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39107e1c523be2d4e8620fe28aeb8efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spikedballTrap: {fileID: 6731377758562934035, guid: d1936035bb2528843a32a31cba9964c5, type: 3}
+  sawTrap: {fileID: 6508009161436206451, guid: bc831f24a22997142a66b40b4a6c70ff, type: 3}

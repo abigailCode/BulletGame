@@ -994,7 +994,7 @@ GameObject:
   - component: {fileID: 5904616908063819171}
   m_Layer: 0
   m_Name: Chain
-  m_TagString: Untagged
+  m_TagString: SpikedballTrap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

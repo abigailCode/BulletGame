@@ -10,6 +10,8 @@ TagManager:
   - spikedball_item
   - sawblade_item
   - Trap
+  - SawTrap
+  - SpikedballTrap
   layers:
   - Default
   - TransparentFX
