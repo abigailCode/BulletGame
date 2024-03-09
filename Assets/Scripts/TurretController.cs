@@ -7,11 +7,11 @@ public class TurretController : MonoBehaviour
 
     // Referencias privadas accesibles desde el Inspector
     [SerializeField] GameObject bulletPrefab; // Prefab con la bala
-    [SerializeField] GameObject spawnPoint; // Posición desde la que instanciar balas                          
+    [SerializeField] GameObject spawnPoint; // Posiciï¿½n desde la que instanciar balas                          
     [SerializeField] float bulletSpeed = 10;
-    Vector2 mousePosition; // Para almacenar las coordenadas en píxeles del mouse
+    Vector2 mousePosition; // Para almacenar las coordenadas en pï¿½xeles del mouse
     Vector2 worldMousePosition; // Para almacenar las coordenadas equivalentes del mundo                    
-    Vector2 pointDirection; // Para almacenar el vector de dirección que apunta al mouse
+    Vector2 pointDirection; // Para almacenar el vector de direcciï¿½n que apunta al mouse
     // Variables privadas
     private bool turretCanShoot; // Para almacenar si se puede disparar o no
 
@@ -21,13 +21,15 @@ public class TurretController : MonoBehaviour
         // Obtenemos el valor del GameManager que controla si se puede disparar o no
         turretCanShoot = GameObject.Find("GameManager").GetComponent<GameManager>().GetShootingStatus();
 
-        // Detectamos si se ha hecho clic con el botón primario del ratón
-        // En ese caso instanciamos la bala en la posición de spawn
+        // Detectamos si se ha hecho clic con el botï¿½n primario del ratï¿½n
+        // En ese caso instanciamos la bala en la posiciï¿½n de spawn
         if (Input.GetMouseButtonDown(0) && turretCanShoot)
         {
 
-            // Instanciamos la bala en la posición de spawn
+            // Instanciamos la bala en la posiciï¿½n de spawn
             GameObject bullet = Instantiate(bulletPrefab, spawnPoint.transform);
+            AudioManager.instance.PlaySFX("Shoot");
+
 
             // Eliminamos la dependencia del objeto padre spawnPoint
             bullet.transform.SetParent(null);
@@ -36,21 +38,21 @@ public class TurretController : MonoBehaviour
             bullet.GetComponent<Rigidbody2D>().velocity = pointDirection.normalized * bulletSpeed;
         }
 
-        // Volvemos a activar los disparos si no se hace clic en el ítem
+        // Volvemos a activar los disparos si no se hace clic en el ï¿½tem
         GameObject.Find("GameManager").GetComponent<GameManager>().EnableFire();
 
-        // Obtenemos la posición del mouse
+        // Obtenemos la posiciï¿½n del mouse
         mousePosition = Input.mousePosition; // Coordenadas de pantalla
 
         // Transformamos las coordenadas de pantalla en coordenadas del mundo
         worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        // Hacemos que el GameObject apunte a la posición del mouse
-        // calculando el vector que contiene la dirección hacia el mouse
+        // Hacemos que el GameObject apunte a la posiciï¿½n del mouse
+        // calculando el vector que contiene la direcciï¿½n hacia el mouse
         pointDirection = worldMousePosition - (Vector2)transform.position;
 
 
-        // Ajustamos la rotación del objeto para que apunte hacia la dirección del ratón
+        // Ajustamos la rotaciï¿½n del objeto para que apunte hacia la direcciï¿½n del ratï¿½n
         // Recordatorio: un vector normalizado es un vector que tiene magnitud 1
         transform.up = pointDirection.normalized;
 

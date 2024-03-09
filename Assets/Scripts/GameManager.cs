@@ -5,14 +5,13 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    #region Variables
-
+   
     // Referencias a objetos privados visibles desde el Inspector
     [SerializeField] GameObject HPBar; // Para referenciar el relleno de la barra de vida
 
-    // Variable pública para modificar desde cualquier script
+    // Variable pï¿½blica para modificar desde cualquier script
     public float life = 100; // Vida que tiene el jugador en un momento determinado
-    public float maxLife = 100; // Vida máxima del jugador
+    public float maxLife = 100; // Vida mï¿½xima del jugador
 
     // Referencias a objetos privados visibles desde el Inspector
     [SerializeField] GameObject dialoguesObject;
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour
     // Referencias a objetos privados visibles desde el Inspector
     [SerializeField] TextMeshProUGUI textoDisparos;
     [SerializeField] TextMeshProUGUI textoMuertes;
-    // Variable pública para modificar desde cualquier script
+    // Variable pï¿½blica para modificar desde cualquier script
     public int disparos = 0;
     public int muertes = 0;
     // Variables privadas
@@ -32,21 +31,23 @@ public class GameManager : MonoBehaviour
     private Inventory inventario; // Para guardar la referencia al script del inventario
     [SerializeField] GameObject itemButton_1;
     [SerializeField] GameObject itemButton_2;
-    #endregion
+
+    private string totalTime="";
+
 
 
 
     private void Start()
     {
         // Configuramos el cursor con el sprite de la mirilla.
-        // El segundo parámetro indica el punto efectivo del cursor (como la
-        // imagen del cursor tiene 32x32 píxeles, el centro estará en 16, 16)
-        // y el tercer parámetro indica el modo de renderizado del mismo
+        // El segundo parï¿½metro indica el punto efectivo del cursor (como la
+        // imagen del cursor tiene 32x32 pï¿½xeles, el centro estarï¿½ en 16, 16)
+        // y el tercer parï¿½metro indica el modo de renderizado del mismo
         // Configuramos el cursor con el sprite de la mirilla
         Vector2 hotspot = new Vector2(cursorTarget.width / 2, cursorTarget.height / 2);
         Cursor.SetCursor(cursorTarget, hotspot, CursorMode.Auto);
 
-        // Actualizamos la información
+        // Actualizamos la informaciï¿½n
         UpdateDisparos();
         UpdateMuertes();
 
@@ -58,29 +59,29 @@ public class GameManager : MonoBehaviour
     }
 
     // ---------------------------------------------
-    // DETECCIÓN DE CLICS DEL MOUSE SOBRE LOS ÍTEMS
+    // DETECCIï¿½N DE CLICS DEL MOUSE SOBRE LOS ï¿½TEMS
     // ---------------------------------------------
     void Update()
     {
 
-        // Actualización de la barra de vida
+        // Actualizaciï¿½n de la barra de vida
         HPBar.GetComponent<Image>().fillAmount = life / maxLife;
 
-        // Código para probar que la barra de vida funciona
+        // Cï¿½digo para probar que la barra de vida funciona
         if (Input.GetKey(KeyCode.UpArrow)) life = life + 0.25f;
         if (Input.GetKey(KeyCode.DownArrow)) life = life - 0.25f;
 
-        // Verificar si se ha hecho clic con el botón izquierdo del ratón
+        // Verificar si se ha hecho clic con el botï¿½n izquierdo del ratï¿½n
         if (Input.GetMouseButtonDown(0))
         {
 
 
-            // Obtener la posición del clic en la pantalla
+            // Obtener la posiciï¿½n del clic en la pantalla
             Vector3 clicPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // Crear un RaycastHit2D para almacenar la información de colisión 2D
-            // Desde la posición en la que se hizo clic en la dirección 0, 0, 0
-            // por lo tanto el Raycast será un diminuto punto que detecta la colisión
+            // Crear un RaycastHit2D para almacenar la informaciï¿½n de colisiï¿½n 2D
+            // Desde la posiciï¿½n en la que se hizo clic en la direcciï¿½n 0, 0, 0
+            // por lo tanto el Raycast serï¿½ un diminuto punto que detecta la colisiï¿½n
             RaycastHit2D hit = Physics2D.Raycast(clicPosition, Vector2.zero);
 
             // Verificar si ha golpeado un objeto
@@ -88,21 +89,23 @@ public class GameManager : MonoBehaviour
             {
 
 
-                // Filtrar los objetos que interesan según su etiqueta
+                // Filtrar los objetos que interesan segï¿½n su etiqueta
                 if (hit.collider.CompareTag("spikedball_item") && !dialoguesObject.activeSelf)
                 {
-                    Debug.Log("¡¡BOLA CON PINCHOS!!");
+                    Debug.Log("ï¿½ï¿½BOLA CON PINCHOS!!");
+                    AudioManager.instance.PlaySFX("Pickup");
+
                     // Verificamos si existen huecos libres en el inventario
                     for (int i = 0; i < inventario.slots.Length; i++)
                     {
                         if (!inventario.isFull[i])
-                        { // Se pueden añadir items
-                            inventario.isFull[i] = true; // Ocupamos la posición
-                                                         // Instanciamos un botón en la posición del slot
+                        { // Se pueden aï¿½adir items
+                            inventario.isFull[i] = true; // Ocupamos la posiciï¿½n
+                                                         // Instanciamos un botï¿½n en la posiciï¿½n del slot
                             Instantiate(itemButton_1, inventario.slots[i].transform, false);
                             Destroy(hit.collider.gameObject); // Destruimos el objeto
                             DisableFire();
-                            dialoguesObject.SetActive(true); // Activamos los diálogos
+                            dialoguesObject.SetActive(true); // Activamos los diï¿½logos
                             GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("spikedball_item");
                             break; // Salimos del bucle
                         }
@@ -110,18 +113,20 @@ public class GameManager : MonoBehaviour
                 }
                 if (hit.collider.CompareTag("sawblade_item") && !dialoguesObject.activeSelf)
                 {
-                    Debug.Log("¡¡DISCO DE SIERRA!!");
+                    Debug.Log("ï¿½ï¿½DISCO DE SIERRA!!");
+                    AudioManager.instance.PlaySFX("Pickup");
+                    
                     // Verificamos si existen huecos libres en el inventario
                     for (int i = 0; i < inventario.slots.Length; i++)
                     {
                         if (!inventario.isFull[i])
-                        { // Se pueden añadir items
-                            inventario.isFull[i] = true; // Ocupamos la posición
-                                                         // Instanciamos un botón en la posición del slot
+                        { // Se pueden aï¿½adir items
+                            inventario.isFull[i] = true; // Ocupamos la posiciï¿½n
+                                                         // Instanciamos un botï¿½n en la posiciï¿½n del slot
                             Instantiate(itemButton_2, inventario.slots[i].transform, false);
                             Destroy(hit.collider.gameObject); // Destruimos el objeto
                             DisableFire();
-                            dialoguesObject.SetActive(true); // Activamos los diálogos
+                            dialoguesObject.SetActive(true); // Activamos los diï¿½logos
                             GameObject.Find("DialogPanel").GetComponent<dialogueController>().StartDialogue("sawblade_item");
                             break; // Salimos del bucle
                         }
@@ -134,7 +139,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    // Método público que actualiza el texto de los disparos
+    // Mï¿½todo pï¿½blico que actualiza el texto de los disparos
     public void UpdateDisparos()
     {
         // Actualizamos el texto de las balas disparadas
@@ -147,7 +152,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ---------------------------------------
-    // Método para desactivar los disparos
+    // Mï¿½todo para desactivar los disparos
     // ---------------------------------------
     public void DisableFire()
     {
@@ -155,7 +160,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ---------------------------------------
-    // Método para activar los disparos
+    // Mï¿½todo para activar los disparos
     // ---------------------------------------
     public void EnableFire()
     {
@@ -163,23 +168,27 @@ public class GameManager : MonoBehaviour
     }
 
     // -------------------------------------------------
-    // Método para devolver si se puede disparar o no
+    // Mï¿½todo para devolver si se puede disparar o no
     // -------------------------------------------------
     public bool GetShootingStatus()
     {
         return canShoot;
     }
 
-    // Método para restar vida al Player
+    // Mï¿½todo para restar vida al Player
     public void TakeDamage(int damage)
     {
         life = Mathf.Clamp(life - damage, 0, maxLife);
+        if(life == 0) {
+            SetTotalTime(GameObject.Find("Timer").GetComponent<TMP_Text>().text);
+            SceneController.instance.LoadScene("GameOver");
+        } 
     }
 
-    // Método para añadir vida al Player
+    // Mï¿½todo para aï¿½adir vida al Player
     public void Heal(int lifeRecovered)
     {
-        life = life = Mathf.Clamp(life + lifeRecovered, 0, maxLife); ;
+        life = life = Mathf.Clamp(life + lifeRecovered, 0, maxLife);
     }
 
    public IEnumerator IncreaseSpeedCoroutine()
@@ -192,12 +201,19 @@ public class GameManager : MonoBehaviour
             // Aumentamos la velocidad en 2 puntos
             bugSpeed += 0.5f;
 
-            // **Limitar la velocidad máxima**
+            // **Limitar la velocidad mï¿½xima**
             if (bugSpeed > 20f)
             {
                 bugSpeed = 20f;
             }
         }
     }
+
+    public void SetTotalTime(string time){
+    this.totalTime = time;
+    PlayerPrefs.SetString("TotalTime", totalTime);
+    }
+
+
 
 }
