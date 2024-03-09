@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BugMotion : MonoBehaviour
 {
+    public GameObject Blood;
     [SerializeField] float bugSpeed = 2; // Variables privadas accesibles desde el inspector
     [SerializeField] GameObject target; // Referencias privadas accesibles desde el inspector
     [SerializeField] float circleAttackRadius = 0.1f; // Radio del collider de ataque
@@ -71,6 +72,7 @@ public class BugMotion : MonoBehaviour
             if (collision.gameObject.CompareTag("Bullet"))
             {
                 AudioManager.instance.PlaySFX("EnemyDamage");
+                Instantiate(Blood, transform.position, Quaternion.identity);
                 GameObject.Find("GameManager").GetComponent<GameManager>().muertes++;
                 GameObject.Find("GameManager").GetComponent<GameManager>().UpdateMuertes();
                 // Se llama al generador de objetos aleatorios
@@ -94,6 +96,7 @@ public class BugMotion : MonoBehaviour
             if (collision.collider.CompareTag("Trap"))
             {
                 AudioManager.instance.PlaySFX("EnemyDamage");
+                Instantiate(Blood, transform.position, Quaternion.identity);
                 // Se incrementa el n�mero de muertes
                 GameObject.Find("GameManager").GetComponent<GameManager>().muertes++;
                 // Se actualiza el texto
